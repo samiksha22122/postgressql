@@ -1,0 +1,51 @@
+# General configuration
+logging:
+  level: INFO
+  format: "[%(asctime)s] %(levelname)s in %(module)s: %(message)s"
+
+# Choose the database type to be loaded
+database:
+  type: postgres  # Change to sqlite, hivedb, mysql, or snowflake as needed
+
+# Configs per database type (used by config_manager if required)
+database_configs:
+  postgres:
+    module: core.clients.azure.database.postgres_client
+    class: AzurePostgresClient
+    connection:
+      host: localhost
+      port: 5432
+      user: your_username
+      password: your_password
+      dbname: your_database
+  sqlite:
+    module: core.clients.azure.database.sqlite_client
+    class: SqliteClient
+    connection:
+      filepath: ./data/your_sqlite_db.sqlite3
+  hivedb:
+    module: core.clients.azure.database.hive_metastore_client
+    class: HiveMetaStore
+    connection:
+      host: hive-host
+      port: 10000
+      user: hive_user
+  mysql:
+    module: core.clients.azure.database.mysql_client
+    class: MySQLClient
+    connection:
+      host: localhost
+      port: 3306
+      user: your_user
+      password: your_password
+      dbname: your_db
+  snowflake:
+    module: core.clients.azure.database.snowflake_client
+    class: SnowflakeClient
+    connection:
+      user: your_user
+      password: your_password
+      account: your_account
+      warehouse: your_warehouse
+      database: your_database
+      schema: public
